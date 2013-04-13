@@ -989,29 +989,21 @@ function sb_print_filters($filter) {
 		$cd = isset($_REQUEST['dir']) ? $_REQUEST['dir'] : 'desc';
 		?>
 		<span class="inline_controls"><a href="#" id="show_hide_filter"></a></span>
-		<div id="mainfilter">
-			<form method="post" id="sermon-filter" action="<?php echo sb_display_url(); ?>">
+		<div id="mainfilter"><!--Start Filter Options-->
+            <form method="post" id="sermon-filter" action="<?php echo sb_display_url(); ?>">
 				<div style="clear:both">
 					<table class="sermonbrowser">
-						<tr>
+						<tr><!--Begin Select Preacher-->
 							<td class="fieldname"><?php _e('Preacher', $sermon_domain) ?></td>
-							<td class="field"><select name="preacher" id="preacher">
+							<td class="field"><select name="preacher" id="preacher">                         
 									<option value="0" <?php echo (isset($_REQUEST['preacher']) && $_REQUEST['preacher'] != 0) ? '' : 'selected="selected"' ?>><?php _e('[All]', $sermon_domain) ?></option>
 									<?php foreach ($preachers as $preacher): ?>
 									<option value="<?php echo $preacher->id ?>" <?php echo isset($_REQUEST['preacher']) && $_REQUEST['preacher'] == $preacher->id ? 'selected="selected"' : '' ?>><?php echo stripslashes($preacher->name).' ('.$preacher->count.')' ?></option>
 									<?php endforeach ?>
 								</select>
-							</td>
-							<td class="fieldname rightcolumn"><?php _e('Services', $sermon_domain) ?></td>
-							<td class="field"><select name="service" id="service">
-									<option value="0" <?php echo isset($_REQUEST['service']) && $_REQUEST['service'] != 0 ? '' : 'selected="selected"' ?>><?php _e('[All]', $sermon_domain) ?></option>
-									<?php foreach ($services as $service): ?>
-									<option value="<?php echo $service->id ?>" <?php echo isset($_REQUEST['service']) && $_REQUEST['service'] == $service->id ? 'selected="selected"' : '' ?>><?php echo stripslashes($service->name).' ('.$service->count.')' ?></option>
-									<?php endforeach ?>
-								</select>
-							</td>
+							</td><!--End Select Preacher-->
 						</tr>
-						<tr>
+						<tr><!--Begin Select Book-->
 							<td class="fieldname"><?php _e('Book', $sermon_domain) ?></td>
 							<td class="field"><select name="book">
 									<option value=""><?php _e('[All]', $sermon_domain) ?></option>
@@ -1019,7 +1011,9 @@ function sb_print_filters($filter) {
 									<option value="<?php echo $book->name ?>" <?php echo isset($_REQUEST['book']) && $_REQUEST['book'] == $book->name ? 'selected=selected' : '' ?>><?php echo stripslashes($book->name). ' ('.$book->count.')' ?></option>
 									<?php endforeach ?>
 								</select>
-							</td>
+							</td><!--End Select Book-->
+                        </tr>
+						<tr><!--Begin Select Series-->
 							<td class="fieldname rightcolumn"><?php _e('Series', $sermon_domain) ?></td>
 							<td class="field"><select name="series" id="series">
 									<option value="0" <?php echo (isset($_REQUEST['series']) && $_REQUEST['series'] != 0) ? '' : 'selected="selected"' ?>><?php _e('[All]', $sermon_domain) ?></option>
@@ -1027,41 +1021,19 @@ function sb_print_filters($filter) {
 									<option value="<?php echo $item->id ?>" <?php echo isset($_REQUEST['series']) && $_REQUEST['series'] == $item->id ? 'selected="selected"' : '' ?>><?php echo stripslashes($item->name).' ('.$item->count.')' ?></option>
 									<?php endforeach ?>
 								</select>
-							</td>
+							</td><!--End Select Series-->
 						</tr>
-						<tr>
-							<td class="fieldname"><?php _e('Start date', $sermon_domain) ?></td>
-							<td class="field"><input type="text" name="date" id="date" value="<?php echo isset($_REQUEST['date']) ? mysql_real_escape_string($_REQUEST['date']) : '' ?>" /></td>
-							<td class="fieldname rightcolumn"><?php _e('End date', $sermon_domain) ?></td>
-							<td class="field"><input type="text" name="enddate" id="enddate" value="<?php echo isset($_REQUEST['enddate']) ? mysql_real_escape_string($_REQUEST['enddate']) : '' ?>" /></td>
-						</tr>
-						<tr>
+						<tr><!--Begin Select Keywords-->
 							<td class="fieldname"><?php _e('Keywords', $sermon_domain) ?></td>
 							<td class="field" colspan="3"><input style="width: 98.5%" type="text" id="title" name="title" value="<?php echo isset($_REQUEST['title']) ? mysql_real_escape_string($_REQUEST['title']) : '' ?>" /></td>
-						</tr>
-						<tr>
-							<td class="fieldname"><?php _e('Sort by', $sermon_domain) ?></td>
-							<td class="field"><select name="sortby" id="sortby">
-									<?php foreach ($sb as $k => $v): ?>
-									<option value="<?php echo $v ?>" <?php echo $csb == $v ? 'selected="selected"' : '' ?>><?php _e($k, $sermon_domain) ?></option>
-									<?php endforeach ?>
-								</select>
-							</td>
-							<td class="fieldname rightcolumn"><?php _e('Direction', $sermon_domain) ?></td>
-							<td class="field"><select name="dir" id="dir">
-									<?php foreach ($di as $k => $v): ?>
-									<option value="<?php echo $v ?>" <?php echo $cd == $v ? 'selected="selected"' : '' ?>><?php _e($k, $sermon_domain) ?></option>
-									<?php endforeach ?>
-								</select>
-							</td>
-						</tr>
-						<tr>
+						</tr><!--End Select Keywords-->
+						<tr><!--Start Filter Button-->
 							<td colspan="3">&nbsp;</td>
 							<td class="field"><input type="submit" class="filter" value="<?php _e('Filter &raquo;', $sermon_domain) ?>">			</td>
-						</tr>
+						</tr><!--End Filter Button-->
 					</table>
 					<input type="hidden" name="page" value="1">
-				</div>
+				</div><!--End Filter Options-->
 			</form>
 		</div>
 		<script type="text/javascript">
@@ -1077,6 +1049,7 @@ function sb_print_filters($filter) {
 	<?php
 	}
 }
+
 // Returns the first MP3 file attached to a sermon
 // Stats have to be turned off for iTunes compatibility
 function sb_first_mp3($sermon, $stats= TRUE) {
