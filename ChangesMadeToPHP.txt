@@ -5,3 +5,6 @@ podcast.php => add<itunes:image> line 122
 frontend.php => add next page button line 607 
 	add previous page button line 618
 	change drop down filter starting on line 931
+
+	Edited Filter between
+	line 992 - 1036
